@@ -713,15 +713,15 @@ Reglas 300
 				}
 			}else {
 				
+				contadoridentiId++;
 				
-				contadoridenti++;
 				
 				id++;
 				
 				identificador=String.valueOf(id);
-				espacioTablaOcupadoId[contadoridenti]=contadoridenti;
-				tokenUsado[contadoridenti]=elementArray[vueltas];
-				tokenValorUsado[contadoridenti]=id;
+				espacioTablaOcupadoId[contadoridentiId]=contadoridentiId;
+				tokenUsado[contadoridentiId]=elementArray[vueltas];
+				tokenValorUsado[contadoridentiId]=id;
 				
 						
 				SalidaId(elementArray[vueltas],identificador,Linea);
@@ -816,81 +816,7 @@ Reglas 300
 			
 			
 		}else if(estado==10){
-			String Numero=String.valueOf(No);
-			String Linea=String.valueOf(linea);
-			String consta=String.valueOf(constante);
-			String LineaConst=String.valueOf(linea);
-			int auxConst=0;
-			int auxEspacio=0;
-			boolean existe=false;
-			for(int i=0;i<tokenUsado.length;i++) {
-				if(elementArray[vueltas].equals(tokenUsado[i]) ) {
-					//
-					
-					existe=true;
-					break;
-				}else {
-					existe=false;
-					
-				}
-					
-			}
-if(existe==true ) {
-				
-				for(int i=0;i<tokenUsado.length;i++) {
-				if(elementArray[vueltas].equals(tokenUsado[i])) {
-					
-					auxConst=tokenValorUsado[i];
-					break;
-				}
-				}
-				for(int i=0;i<espacioTablaOcupado.length+1;i++) {
-					if(elementArray[vueltas].equals(tokenUsado[i])) {
-						
-						if(flagAConst==false) {
-							auxEspacio=espacioTablaOcupado[i];
-							System.out.println("espacio adquirido"+auxEspacio);
-							LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
-							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-							model2.setValueAt(LineaConst, auxEspacio-1, 2);
-							}else {
-								auxEspacio=espacioTablaOcupado[i-1];
-								System.out.println("espacio adquirido"+auxEspacio);
-								LineaConst =(String)tablaConst.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
-								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
-
-								model2.setValueAt(LineaConst, auxEspacio-(i-1), 2);
-								flagAConst=false;
-							}
-							
-						break;
-					}
-					flagAId=true;
-					}
-				consta=String.valueOf(auxConst);
-				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
-				
-			}else {
-				
-				contadoridenti++;
-			
-				constante=constante+1;
-				
-				consta=String.valueOf(constante);
-				espacioTablaOcupado[contadoridenti]=contadoridenti;
-				tokenUsado[contadoridenti]=	elementArray[vueltas];
-				tokenValorUsado[contadoridenti]=constante;
-				
-				SalidaConst(elementArray[vueltas],consta,Linea);
-				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
-				if(flagError==false) {
-					resultado.setText("1:100 Sin errores");
-				}
-
-			}
-			}else if(estado==12){
-				
 				String Numero=String.valueOf(No);
 				String Linea=String.valueOf(linea);
 				String consta=String.valueOf(constante);
@@ -898,6 +824,7 @@ if(existe==true ) {
 				int auxConst=0;
 				int auxEspacio=0;
 				boolean existe=false;
+
 				for(int i=0;i<tokenUsado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i]) ) {
 						//
@@ -910,7 +837,7 @@ if(existe==true ) {
 					}
 						
 				}
-	if(existe==true ) {
+				if(existe==true ) {
 					
 					for(int i=0;i<tokenUsado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
@@ -919,7 +846,7 @@ if(existe==true ) {
 						break;
 					}
 					}
-					for(int i=0;i<espacioTablaOcupado.length;i++) {
+					for(int i=0;i<espacioTablaOcupado.length+1;i++) {
 						if(elementArray[vueltas].equals(tokenUsado[i])) {
 							
 							if(flagAConst==false) {
@@ -930,21 +857,27 @@ if(existe==true ) {
 
 								model2.setValueAt(LineaConst, auxEspacio-1, 2);
 								}else {
-									auxEspacio=espacioTablaOcupado[i-1];
+									auxEspacio=espacioTablaOcupado[i];
 									System.out.println("espacio adquirido"+auxEspacio);
-									LineaConst =(String)tablaConst.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+									LineaConst =(String)tablaConst.getValueAt(auxEspacio-i, 2)+", "+linea;
 									DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-									model2.setValueAt(LineaConst, auxEspacio-(i-1), 2);
-									flagAConst=false;
+									model2.setValueAt(LineaConst, auxEspacio-i, 2);
+									flagAConst=true;
 								}
 								
+								
+							
+							
+							
 							break;
 						}
-						flagAId=true;
+						
 						}
+					flagAId=true;
 					consta=String.valueOf(auxConst);
 					Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+					
 					
 				}else {
 					
@@ -959,12 +892,10 @@ if(existe==true ) {
 					
 					SalidaConst(elementArray[vueltas],consta,Linea);
 					Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+				}if(flagError==false) {
+					resultado.setText("1:100 Sin errores");
 				}
-				
-				
-	if(flagError==false) {
-		resultado.setText("1:100 Sin errores");
-	}
+	
 
 		}else if(estado==17){
 			String Numero=String.valueOf(No);
