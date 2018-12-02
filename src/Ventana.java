@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -46,7 +45,7 @@ public void paintComponent(Graphics g){
 }
 
 public class Ventana extends JFrame {
-	JTable tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "LÌnea","TOKEN","Tipo","CÛdigo"}, 0));
+	JTable tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "L√≠nea","TOKEN","Tipo","C√≥digo"}, 0));
 	JTable tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
 	JTable tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
 	  
@@ -88,6 +87,12 @@ public class Ventana extends JFrame {
 	int id=100;
 	int constante=200;
 	int cicloLinea=0;
+	
+	
+	
+	JScrollPane JSId=new JScrollPane(tablaId);
+	JScrollPane JSConst=new JScrollPane(tablaConst);
+	JScrollPane JSLex=new JScrollPane(tablaLexica);
 	/*
 	 letra=0
 	 digito=1
@@ -130,10 +135,10 @@ public class Ventana extends JFrame {
 		JFrame frame = new JFrame();
 	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setVisible(true);
-		
+	    
 		
 		frame.add(app);
-		frame.setTitle("Escaer Jose Morales, Francisco S·nchez y Omar Verdugo");
+		frame.setTitle("Escaer Jose Morales, Francisco S√°nchez y Omar Verdugo");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setLocation(0,0);
@@ -181,9 +186,7 @@ public class Ventana extends JFrame {
 				model2.setRowCount(0);
 				DefaultTableModel model3 = (DefaultTableModel) tablaConst.getModel();
 				model3.setRowCount(0);
-				tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "LÌnea","TOKEN","Tipo","CÛdigo"}, 0));
-				tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
-				tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
+				
 				//mostar cadena
 				
 				cadena = campoCadena.getText()+" ~";
@@ -197,7 +200,7 @@ public class Ventana extends JFrame {
 				
 				//
 				if(campoCadena.getText().isEmpty()==true) {
-					resultado.setText("Campo VacÌo");
+					resultado.setText("Campo Vac√≠o");
 				
 				}else {
 					
@@ -212,27 +215,31 @@ public class Ventana extends JFrame {
 				
 			}
 			public void showTable() {
-				JScrollPane JSId=new JScrollPane(tablaId);
+				 JSId=new JScrollPane(tablaId);
 				
 				JSId.setBounds(500,0,300,300);
 				frame.add(JSId);
 				JSId.setVisible(true);
 				JSId.repaint();
 
-				JScrollPane JSConst=new JScrollPane(tablaConst);
+				JSConst=new JScrollPane(tablaConst);
 				
 				JSConst.setBounds(500,300,300,300);
 				frame.add(JSConst);
 				JSConst.setVisible(true);
 				JSConst.repaint();
 					
-				JScrollPane JSLex=new JScrollPane(tablaLexica);
+				JSLex=new JScrollPane(tablaLexica);
 				
 				JSLex.setBounds(800,0,400,600);
 				frame.add(JSLex);
 				JSLex.setVisible(true);
 				JSLex.repaint();
+				tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "L√≠nea","TOKEN","Tipo","C√≥digo"}, 0));
+				tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
+				tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
 			}
+			
 			private void MaestroLimpio() {
 				// TODO Auto-generated method stub
 				datosLex=new String[5][100];
@@ -284,7 +291,7 @@ public class Ventana extends JFrame {
 		
 		JButton MostrarTablas=new JButton("Tablas");
 		MostrarTablas.setBounds(220, 350, 100, 40);
-		app.add(MostrarTablas);
+		
 		MostrarTablas.addActionListener(new ActionListener() {
 
 			@Override
@@ -312,7 +319,9 @@ public class Ventana extends JFrame {
 					frame.add(JSLex);
 					JSLex.setVisible(true);
 					JSLex.repaint();
-					
+					tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "L√≠nea","TOKEN","Tipo","C√≥digo"}, 0));
+					tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
+					tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
 				}
 				else {
 					resultado.setText("No existen tablas");
@@ -379,7 +388,7 @@ public class Ventana extends JFrame {
 				model2.setRowCount(0);
 				DefaultTableModel model3 = (DefaultTableModel) tablaConst.getModel();
 				model3.setRowCount(0);
-				tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "LÌnea","TOKEN","Tipo","CÛdigo"}, 0));
+				tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "L√≠nea","TOKEN","Tipo","C√≥digo"}, 0));
 				tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
 				tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
 			}
@@ -403,13 +412,13 @@ public class Ventana extends JFrame {
 	}
 	
 	///visual fin
-/*Modo ·guila
+/*Modo √°guila
 		JLabel background;
 		ImageIcon img = new ImageIcon("img/americanPower.jpg");
 		background= new JLabel("",img,JLabel.CENTER);
 		background.setBounds(0,0,1200,600);
 		
-		JButton modoAguila=new JButton("Modo: ¡guila");
+		JButton modoAguila=new JButton("Modo: √Åguila");
 		modoAguila.setBounds(1000, 500, 150, 50);
 		modoAguila.addActionListener(new ActionListener(){
 			
@@ -491,12 +500,9 @@ public void Validar() {
 Tokens Valor inicial
 Delimitadores 50
 Operadores 70
-
 Identificadores (i) 100
-
 Constantes (c) 200
 Reglas 300
-
 ( 50 + 70
 ) 51 - 71
 ; 52 * 72
@@ -523,7 +529,7 @@ Reglas 300
 			String Linea=String.valueOf(linea);
 			Salida(Numero,Linea,"+","7","70");
 			
-		}else if(elementArray[vueltas].equals("-") || (elementArray[vueltas].equals("ñ"))) {
+		}else if(elementArray[vueltas].equals("‚Äì") || (elementArray[vueltas].equals("¬ñ-")) || (elementArray[vueltas].equals("¬ñ‚Äî"))) {
 			String Numero=String.valueOf(No);
 			String Linea=String.valueOf(linea);
 			Salida(Numero,Linea,"-","7","71");
@@ -1093,7 +1099,7 @@ if(existe==true ) {
 		
 		
 		/* 
-		private String [] cabezera= {"No.","LÌnea","TOKEN","Tipo","CÛdigo"};
+		private String [] cabezera= {"No.","L√≠nea","TOKEN","Tipo","C√≥digo"};
 		private String [][] datos= {{"1","Fernando","Castillo","Ecuador"},
 									{"2","Jorge","monteral","mexicano"},
 									{"3","kujo","jotaro","japone"},};
@@ -1118,7 +1124,7 @@ if(existe==true ) {
 		public JFrame VentanaId;
 		
 		/* 
-		private String [] cabezera= {"No.","LÌnea","TOKEN","Tipo","CÛdigo"};
+		private String [] cabezera= {"No.","L√≠nea","TOKEN","Tipo","C√≥digo"};
 		private String [][] datos= {{"1","Fernando","Castillo","Ecuador"},
 									{"2","Jorge","monteral","mexicano"},
 									{"3","kujo","jotaro","japone"},};
@@ -1142,7 +1148,7 @@ if(existe==true ) {
 		public JFrame VentanaConst;
 		
 		/* 
-		private String [] cabezera= {"No.","LÌnea","TOKEN","Tipo","CÛdigo"};
+		private String [] cabezera= {"No.","L√≠nea","TOKEN","Tipo","C√≥digo"};
 		private String [][] datos= {{"1","Fernando","Castillo","Ecuador"},
 									{"2","Jorge","monteral","mexicano"},
 									{"3","kujo","jotaro","japone"},};
