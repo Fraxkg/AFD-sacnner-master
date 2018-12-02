@@ -84,11 +84,12 @@ public class Ventana extends JFrame {
 	int total=0;
 	int No=1;
 	int linea=1;
+	int auxlinea=1;
 	int id=100;
 	int constante=200;
 	int cicloLinea=0;
-	
-	
+	boolean flagAId=false;
+	boolean flagAConst=false;
 	
 	JScrollPane JSId=new JScrollPane(tablaId);
 	JScrollPane JSConst=new JScrollPane(tablaConst);
@@ -280,7 +281,8 @@ public class Ventana extends JFrame {
 				elementArray= new String[99];
 				flagError=false;
 				
-				
+				flagAId=false;
+				flagAConst=false;
 				elementArray = new String[99];
 				datosLex=new String[5][100];
 				
@@ -378,7 +380,8 @@ public class Ventana extends JFrame {
 				lineaEntexto=0;
 				elementArray= new String[99];
 				flagError=false;
-				
+				flagAId=false;
+				flagAConst=false;
 				
 				elementArray = new String[99];
 				datosLex=new String[5][100];
@@ -512,17 +515,14 @@ Reglas 300
 	
 	
 	do {
-		
-			if(cicloLinea==vueltas){
-				
-				linea=Integer.parseInt(lineas[cicloLinea]);
-				
-				cicloLinea++;
+		if(cicloLinea==vueltas){
+			
+			linea=Integer.parseInt(lineas[cicloLinea]);
+			
+			cicloLinea++;
+	}
 			
 			
-			
-		}
-		
 		if(elementArray[vueltas].equals("+")) {
 			
 			String Numero=String.valueOf(No);
@@ -629,6 +629,7 @@ Reglas 300
 		}while(cont<tam);
 		
 		if (estado==1 && flagCorreo==false) {
+			
 			String Numero=String.valueOf(No);
 			String Linea=String.valueOf(linea);
 			String LineaId=String.valueOf(linea);
@@ -664,14 +665,28 @@ Reglas 300
 				for(int i=0;i<espacioTablaOcupado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
+						if(flagAId==false) {
 						auxEspacio=espacioTablaOcupado[i];
 						System.out.println("espacio adquirido"+auxEspacio);
 						LineaId =(String)tablaId.getValueAt(auxEspacio-1, 2)+", "+linea;
 						DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
 
 						model1.setValueAt(LineaId, auxEspacio-1, 2);
+						}else {
+							auxEspacio=espacioTablaOcupado[i-1];
+							System.out.println("espacio adquirido"+auxEspacio);
+							LineaId =(String)tablaId.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+							DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
+
+							model1.setValueAt(LineaId, auxEspacio-(i-1), 2);
+						
+						}
+						
+						
+						
 						break;
 					}
+					flagAConst=true;
 					}
 				
 				//Linea=(String) tablaId.getValueAt(auxEspacio, 3);
@@ -713,6 +728,7 @@ Reglas 300
 			int auxConst=0;
 			int auxEspacio=0;
 			boolean existe=false;
+
 			for(int i=0;i<tokenUsado.length;i++) {
 				if(elementArray[vueltas].equals(tokenUsado[i]) ) {
 					//
@@ -725,7 +741,7 @@ Reglas 300
 				}
 					
 			}
-if(existe==true ) {
+			if(existe==true ) {
 				
 				for(int i=0;i<tokenUsado.length;i++) {
 				if(elementArray[vueltas].equals(tokenUsado[i])) {
@@ -737,17 +753,34 @@ if(existe==true ) {
 				for(int i=0;i<espacioTablaOcupado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
-						auxEspacio=espacioTablaOcupado[i];
-						System.out.println("espacio adquirido"+auxEspacio);
-						LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
-						DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+						if(flagAConst==false) {
+							auxEspacio=espacioTablaOcupado[i];
+							System.out.println("espacio adquirido"+auxEspacio);
+							LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
+							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-						model2.setValueAt(LineaConst, auxEspacio-1, 2);
+							model2.setValueAt(LineaConst, auxEspacio-1, 2);
+							}else {
+								auxEspacio=espacioTablaOcupado[i-1];
+								System.out.println("espacio adquirido"+auxEspacio);
+								LineaConst =(String)tablaConst.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+
+								model2.setValueAt(LineaConst, auxEspacio-(i-1), 2);
+								
+							}
+							
+							
+						
+						
+						
 						break;
 					}
+					flagAId=true;
 					}
 				consta=String.valueOf(auxConst);
 				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+				
 				
 			}else {
 				
@@ -799,14 +832,26 @@ if(existe==true ) {
 				for(int i=0;i<espacioTablaOcupado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
-						auxEspacio=espacioTablaOcupado[i];
-						System.out.println("espacio adquirido"+auxEspacio);
-						LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
-						DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+						if(flagAConst==false) {
+							auxEspacio=espacioTablaOcupado[i];
+							System.out.println("espacio adquirido"+auxEspacio);
+							LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
+							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-						model2.setValueAt(LineaConst, auxEspacio-1, 2);
+							model2.setValueAt(LineaConst, auxEspacio-1, 2);
+							}else {
+								auxEspacio=espacioTablaOcupado[i-1];
+								System.out.println("espacio adquirido"+auxEspacio);
+								LineaConst =(String)tablaConst.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+
+								model2.setValueAt(LineaConst, auxEspacio-(i-1), 2);
+								flagAConst=false;
+							}
+							
 						break;
 					}
+					flagAId=true;
 					}
 				consta=String.valueOf(auxConst);
 				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
@@ -862,14 +907,26 @@ if(existe==true ) {
 					for(int i=0;i<espacioTablaOcupado.length;i++) {
 						if(elementArray[vueltas].equals(tokenUsado[i])) {
 							
-							auxEspacio=espacioTablaOcupado[i];
-							System.out.println("espacio adquirido"+auxEspacio);
-							LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
-							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+							if(flagAConst==false) {
+								auxEspacio=espacioTablaOcupado[i];
+								System.out.println("espacio adquirido"+auxEspacio);
+								LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
+								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-							model2.setValueAt(LineaConst, auxEspacio-1, 2);
+								model2.setValueAt(LineaConst, auxEspacio-1, 2);
+								}else {
+									auxEspacio=espacioTablaOcupado[i-1];
+									System.out.println("espacio adquirido"+auxEspacio);
+									LineaConst =(String)tablaConst.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+									DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+
+									model2.setValueAt(LineaConst, auxEspacio-(i-1), 2);
+									flagAConst=false;
+								}
+								
 							break;
 						}
+						flagAId=true;
 						}
 					consta=String.valueOf(auxConst);
 					Salida(Numero,Linea,elementArray[vueltas],"2",consta);
