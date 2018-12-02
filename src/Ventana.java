@@ -673,7 +673,9 @@ Reglas 300
 				
 				identificador=String.valueOf(auxId);
 				Salida(Numero,Linea,elementArray[vueltas],"1",identificador);
-				
+				if(flagError==false) {
+					resultado.setText("1:100 Sin errores");
+				}
 			}else {
 				
 				
@@ -754,6 +756,8 @@ if(existe==true ) {
 				
 				SalidaConst(elementArray[vueltas],consta,Linea);
 				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+			}if(flagError==false) {
+				resultado.setText("1:100 Sin errores");
 			}
 			
 			
@@ -884,20 +888,35 @@ if(existe==true ) {
 		resultado.setText("1:100 Sin errores");
 	}
 
+		}else if(estado==17){
+			String Numero=String.valueOf(No);
+			String Linea=String.valueOf(linea);
+			String consta=String.valueOf(constante+1);
+			String novalido=elementArray[vueltas];
+			if(flagError==false) {
+				resultado.setText("1:102 Error en la linea: "+Linea+" elemento invalido, "+novalido+" no es valida");
+				flagError=true;
+			}
 		}else if(estado==20){
 			String Numero=String.valueOf(No);
 			String Linea=String.valueOf(linea);
 			String consta=String.valueOf(constante+1);
 			String novalido=elementArray[vueltas];
-			resultado.setText("1:101 Error en la linea: "+Linea+" simbolo desconocido, "+novalido+" no es valida");
-			flagError=true;
+			if(flagError==false) {
+				resultado.setText("1:101 Error en la linea: "+Linea+" simbolo desconocido, "+novalido+" no es valida");
+				flagError=true;
+			}
+			
 		}else if(estado==19){
 			String Numero=String.valueOf(No);
 			String Linea=String.valueOf(linea);
 			String consta=String.valueOf(constante+1);
 			String novalido=elementArray[vueltas];
-			resultado.setText("1:102 Error en la linea: "+Linea+" elemento invalido, "+novalido+" no es valida");
-			flagError=true;
+			if(flagError==false) {
+				resultado.setText("1:102 Error en la linea: "+Linea+" elemento invalido, "+novalido+" no es valida");
+				flagError=true;
+			}
+			
 		}
 		flagExpo=false;
 		flagCorreo=false;
