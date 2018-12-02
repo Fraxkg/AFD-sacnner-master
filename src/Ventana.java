@@ -196,7 +196,7 @@ public class Ventana extends JFrame {
 				
 				
 				//
-				if(cadena.isEmpty()==true) {
+				if(campoCadena.getText().isEmpty()==true) {
 					resultado.setText("Campo Vacío");
 				
 				}else {
