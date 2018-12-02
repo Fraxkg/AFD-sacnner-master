@@ -69,6 +69,8 @@ public class Ventana extends JFrame {
 	String cadena;
 	String campo;
 	String lex="";
+	int[] espacioTablaOcupadoId= new int[99];
+	int contadoridentiId=0;
 	int contadoridenti=0;
 	char car=' ';
 	boolean tablaCreada=false;
@@ -216,6 +218,12 @@ public class Ventana extends JFrame {
 				
 			}
 			public void showTable() {
+				JSId.removeAll();
+				JSLex.removeAll();
+				JSConst.removeAll();
+				frame.remove(JSId);
+				frame.remove(JSLex);
+				frame.remove(JSConst);
 				 JSId=new JScrollPane(tablaId);
 				
 				JSId.setBounds(500,0,300,300);
@@ -271,11 +279,13 @@ public class Ventana extends JFrame {
 				constante=200;
 				No=1;
 				contadoridenti=0;
+				contadoridentiId=0;
 				linea=1;
 				vueltas=0;
 				tokenUsado= new String[99];
 				tokenValorUsado= new int[99];
 				espacioTablaOcupado= new int[99];
+				espacioTablaOcupadoId= new int[99];
 				lineas= new String[99];
 				lineaEntexto=0;
 				elementArray= new String[99];
@@ -324,6 +334,7 @@ public class Ventana extends JFrame {
 					tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "Línea","TOKEN","Tipo","Código"}, 0));
 					tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
 					tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
+					
 				}
 				else {
 					resultado.setText("No existen tablas");
@@ -371,11 +382,13 @@ public class Ventana extends JFrame {
 				constante=200;
 				No=1;
 				contadoridenti=0;
+				contadoridentiId=0;
 				linea=1;
 				vueltas=0;
 				tokenUsado= new String[99];
 				tokenValorUsado= new int[99];
 				espacioTablaOcupado= new int[99];
+				espacioTablaOcupadoId= new int[99];
 				lineas= new String[99];
 				lineaEntexto=0;
 				elementArray= new String[99];
@@ -394,6 +407,7 @@ public class Ventana extends JFrame {
 				tablaLexica = new JTable(new DefaultTableModel(new Object[]{"No.", "Línea","TOKEN","Tipo","Código"}, 0));
 				tablaId = new JTable(new DefaultTableModel(new Object[]{"Identificadores", "Valor","Linea"}, 0));
 				tablaConst = new JTable(new DefaultTableModel(new Object[]{"Constantes", "Valor","Linea"}, 0));
+				
 			}
 			
 		});
@@ -662,33 +676,33 @@ Reglas 300
 					break;
 				}
 				}
-				for(int i=0;i<espacioTablaOcupado.length;i++) {
+				for(int i=0;i<espacioTablaOcupadoId.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
 						if(flagAId==false) {
-						auxEspacio=espacioTablaOcupado[i];
+						auxEspacio=espacioTablaOcupadoId[i];
 						System.out.println("espacio adquirido"+auxEspacio);
 						LineaId =(String)tablaId.getValueAt(auxEspacio-1, 2)+", "+linea;
 						DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
 
 						model1.setValueAt(LineaId, auxEspacio-1, 2);
 						}else {
-							auxEspacio=espacioTablaOcupado[i-1];
+							auxEspacio=espacioTablaOcupadoId[i];
 							System.out.println("espacio adquirido"+auxEspacio);
-							LineaId =(String)tablaId.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+							LineaId =(String)tablaId.getValueAt(auxEspacio-i, 2)+", "+linea;
 							DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
 
-							model1.setValueAt(LineaId, auxEspacio-(i-1), 2);
-						
+							model1.setValueAt(LineaId, auxEspacio-i, 2);
+							flagAId=true;
 						}
 						
 						
 						
 						break;
 					}
-					flagAConst=true;
+					
 					}
-				
+				flagAConst=true;
 				//Linea=(String) tablaId.getValueAt(auxEspacio, 3);
 				//System.out.println("lineas"+ tablaId.getValueAt(auxEspacio-1, 2));
 				
@@ -705,8 +719,8 @@ Reglas 300
 				id++;
 				
 				identificador=String.valueOf(id);
-				espacioTablaOcupado[contadoridenti]=contadoridenti;
-				tokenUsado[contadoridenti]=	elementArray[vueltas];
+				espacioTablaOcupadoId[contadoridenti]=contadoridenti;
+				tokenUsado[contadoridenti]=elementArray[vueltas];
 				tokenValorUsado[contadoridenti]=id;
 				
 						
@@ -750,7 +764,7 @@ Reglas 300
 					break;
 				}
 				}
-				for(int i=0;i<espacioTablaOcupado.length;i++) {
+				for(int i=0;i<espacioTablaOcupado.length+1;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
 						if(flagAConst==false) {
@@ -761,13 +775,13 @@ Reglas 300
 
 							model2.setValueAt(LineaConst, auxEspacio-1, 2);
 							}else {
-								auxEspacio=espacioTablaOcupado[i-1];
+								auxEspacio=espacioTablaOcupado[i];
 								System.out.println("espacio adquirido"+auxEspacio);
-								LineaConst =(String)tablaConst.getValueAt(auxEspacio-(i-1), 2)+", "+linea;
+								LineaConst =(String)tablaConst.getValueAt(auxEspacio-i, 2)+", "+linea;
 								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-								model2.setValueAt(LineaConst, auxEspacio-(i-1), 2);
-								
+								model2.setValueAt(LineaConst, auxEspacio-i, 2);
+								flagAConst=true;
 							}
 							
 							
@@ -776,8 +790,9 @@ Reglas 300
 						
 						break;
 					}
-					flagAId=true;
+					
 					}
+				flagAId=true;
 				consta=String.valueOf(auxConst);
 				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
 				
@@ -829,7 +844,7 @@ if(existe==true ) {
 					break;
 				}
 				}
-				for(int i=0;i<espacioTablaOcupado.length;i++) {
+				for(int i=0;i<espacioTablaOcupado.length+1;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
 						if(flagAConst==false) {
