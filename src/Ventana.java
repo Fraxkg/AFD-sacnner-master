@@ -71,6 +71,7 @@ public class Ventana extends JFrame {
 	String lex="";
 	int[] espacioTablaOcupadoId= new int[99];
 	int contadoridentiId=0;
+	int contadorId=0;
 	int contadoridenti=0;
 	int contadoridentiConst=0;
 	char car=' ';
@@ -93,6 +94,7 @@ public class Ventana extends JFrame {
 	int cicloLinea=0;
 	boolean flagAId=false;
 	boolean flagAConst=false;
+	boolean flagPrimeraVez=true;
 	
 	JScrollPane JSId=new JScrollPane(tablaId);
 	JScrollPane JSConst=new JScrollPane(tablaConst);
@@ -142,13 +144,13 @@ public class Ventana extends JFrame {
 	    
 		
 		frame.add(app);
-		frame.setTitle("Escaer Jose Morales, Francisco Sánchez y Omar Verdugo");
+		frame.setTitle("Escaner Jose Morales, Francisco Sánchez y Omar Verdugo");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setLocation(0,0);
         frame.setVisible(true);
 		frame.setSize(1400,800);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLayout(null);
 		frame.setBackground(Color.BLUE);
 		
@@ -170,12 +172,7 @@ public class Ventana extends JFrame {
 		resultado.setForeground(Color.WHITE);
 		font(resultado,"Arial",14);
 		
-		JTextArea campoCadena=new JTextArea("( X1 + B2 ) ;\r\n" + 
-				"( Y1 + B3 * C4 ) + D ;\r\n" + 
-				"( ( ( VAR2 + X1 ) ) ) ;\r\n" + 
-				"( PESO + ( CARGO * DIF2 ) ) ;\r\n" + 
-				"( ( X2 + 45.78 ) * ( CARGO / ABONO ) - ( PORC * 12.55 ) ) – INT ;\r\n" + 
-				"456.78 * ( 12.34 * 3.56E45 ) + B2 ;");
+		JTextArea campoCadena=new JTextArea("");
 		campoCadena.setBounds(20, 100, 450, 200);
 		app.add(campoCadena);
 		app.add(resultado);
@@ -201,11 +198,13 @@ public class Ventana extends JFrame {
 				cadena = campoCadena.getText()+" ~";
 				
 				
-				cadena=cadena.replaceAll("[\n\r]","  ");
+				cadena=cadena.replaceAll("[\n]","  ");
 				
 				cadenaArray = cadena.split("");
 				
-				
+				for(int i=0;i<cadenaArray.length;i++) {
+					System.out.println(cadenaArray[i]);
+				}
 				
 				//
 				if(campoCadena.getText().isEmpty()==true) {
@@ -263,7 +262,7 @@ public class Ventana extends JFrame {
 				
 				contadoridenti=0;
 				 car=' ';
-				
+				 contadorId=0;
 				flagExpo=false;
 				flagCorreo=false;
 				auxEstado=0;
@@ -296,7 +295,7 @@ public class Ventana extends JFrame {
 				lineaEntexto=0;
 				elementArray= new String[99];
 				flagError=false;
-				
+				flagPrimeraVez=true;
 				flagAId=false;
 				flagAConst=false;
 				elementArray = new String[99];
@@ -381,6 +380,7 @@ public class Ventana extends JFrame {
 				 lex="";
 				 linea=1;
 				 contadoridentiConst=0;
+				 contadorId=0;
 				id=100;
 				 constante=200;
 				cicloLinea=0;
@@ -402,7 +402,7 @@ public class Ventana extends JFrame {
 				flagError=false;
 				flagAId=false;
 				flagAConst=false;
-				
+				flagPrimeraVez=true;
 				elementArray = new String[99];
 				datosLex=new String[5][100];
 				DefaultTableModel model1 = (DefaultTableModel) tablaLexica.getModel();
@@ -491,7 +491,7 @@ public void Scanner() {
 			if(aux==' ') {
 				lex="";
 				if(cadenaArray[cont+1].charAt(0)!=' ') {
-				linea++;
+					linea++;
 				
 				}
 			}else if(aux!=' '){
@@ -508,7 +508,7 @@ public void Scanner() {
 			lex=lex+car;
 		}
 		lineas[lineaEntexto]=Integer.toString(linea);
-		System.out.println("linea"+lineas[lineaEntexto]);
+		
 		cont++;
 
 	}while(car!='~');
@@ -539,10 +539,15 @@ Reglas 300
 		if(cicloLinea==vueltas){
 			
 			linea=Integer.parseInt(lineas[cicloLinea]);
-			
+			System.out.println(lineas[cicloLinea]);
 			cicloLinea++;
+			
 	}
+		if(flagPrimeraVez==true) {
+			
+		}else {
 		
+		}
 			
 		if(elementArray[vueltas].equals("+")) {
 			
@@ -594,7 +599,7 @@ Reglas 300
 	vueltas=0;
 	int No=1;
 	int linea=1;
-	
+	flagPrimeraVez=false;
 }
 //calcular cadena
 	public void calcular() {
@@ -686,25 +691,24 @@ Reglas 300
 				for(int i=0;i<espacioTablaOcupadoId.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
+						if(flagAId==false) {
+							
+						}else {
+						
+							
+						}
 						
 						auxEspacio=espacioTablaOcupadoId[i];
 						System.out.println("espacio adquirido"+auxEspacio);
-						
 						LineaId =(String)tablaId.getValueAt(auxEspacio, 2)+", "+linea;
-						
-						
 						DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
 						model1.setValueAt(LineaId, auxEspacio, 2);
-						
-						
-						
-						
-						
+						flagAConst=true;
 						break;
 					}
 					
 					}
-				flagAConst=true;
+				
 				//Linea=(String) tablaId.getValueAt(auxEspacio, 3);
 				//System.out.println("lineas"+ tablaId.getValueAt(auxEspacio-1, 2));
 				
@@ -770,33 +774,32 @@ Reglas 300
 				for(int i=0;i<espacioTablaOcupado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
-						
+						if(flagAConst==false){
+							
+						}else {
+							
+							
+						}
 							auxEspacio=espacioTablaOcupado[i];
 							System.out.println("espacio adquirido"+auxEspacio);
 							LineaConst =(String)tablaConst.getValueAt(auxEspacio, 2)+", "+linea;
 							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
 							model2.setValueAt(LineaConst, auxEspacio, 2);
-							
-
-							
-							
-						
-						
-						
+							flagAId=true;
 						break;
 					}
 					
 					}
-				flagAId=true;
+				
 				consta=String.valueOf(auxConst);
 				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
 				
 				
 			}else {
 				
+			
 				constante++;
-				
 				consta=String.valueOf(constante);
 				espacioTablaOcupado[contadoridenti]=contadoridentiConst;
 				tokenUsado[contadoridenti]=	elementArray[vueltas];
@@ -988,6 +991,7 @@ Reglas 300
 		cont=0;
 		car=' ';
 		carMatriz=0;
+		
 	}
 	
 	public void SalidaId(String token, String valor, String linea) {
