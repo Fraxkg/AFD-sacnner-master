@@ -556,7 +556,7 @@ Reglas 300
 		}else if(elementArray[vueltas].equals("/")) {
 			String Numero=String.valueOf(No);
 			String Linea=String.valueOf(linea);
-			Salida(Numero,Linea,"/","","73");
+			Salida(Numero,Linea,"/","7","73");
 			
 		}else if(elementArray[vueltas].equals("(")) {
 			String Numero=String.valueOf(No);
@@ -687,12 +687,12 @@ Reglas 300
 
 						model1.setValueAt(LineaId, auxEspacio-1, 2);
 						}else {
-							auxEspacio=espacioTablaOcupadoId[i];
+							auxEspacio=espacioTablaOcupadoId[i-1];
 							System.out.println("espacio adquirido"+auxEspacio);
-							LineaId =(String)tablaId.getValueAt(auxEspacio-i, 2)+", "+linea;
+							LineaId =(String)tablaId.getValueAt(auxEspacio, 2)+", "+linea;
 							DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
 
-							model1.setValueAt(LineaId, auxEspacio-i, 2);
+							model1.setValueAt(LineaId, auxEspacio, 2);
 							flagAId=true;
 						}
 						
@@ -713,15 +713,15 @@ Reglas 300
 				}
 			}else {
 				
-				contadoridentiId++;
+				contadoridenti++;
 				
 				
 				id++;
 				
 				identificador=String.valueOf(id);
-				espacioTablaOcupadoId[contadoridentiId]=contadoridentiId;
-				tokenUsado[contadoridentiId]=elementArray[vueltas];
-				tokenValorUsado[contadoridentiId]=id;
+				espacioTablaOcupadoId[contadoridenti]=contadoridenti;
+				tokenUsado[contadoridenti]=elementArray[vueltas];
+				tokenValorUsado[contadoridenti]=id;
 				
 						
 				SalidaId(elementArray[vueltas],identificador,Linea);
@@ -775,12 +775,12 @@ Reglas 300
 
 							model2.setValueAt(LineaConst, auxEspacio-1, 2);
 							}else {
-								auxEspacio=espacioTablaOcupado[i];
+								auxEspacio=espacioTablaOcupado[i-1];
 								System.out.println("espacio adquirido"+auxEspacio);
-								LineaConst =(String)tablaConst.getValueAt(auxEspacio-i, 2)+", "+linea;
+								LineaConst =(String)tablaConst.getValueAt(auxEspacio, 2)+", "+linea;
 								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-								model2.setValueAt(LineaConst, auxEspacio-i, 2);
+								model2.setValueAt(LineaConst, auxEspacio, 2);
 								flagAConst=true;
 							}
 							
