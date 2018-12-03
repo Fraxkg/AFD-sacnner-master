@@ -72,6 +72,7 @@ public class Ventana extends JFrame {
 	int[] espacioTablaOcupadoId= new int[99];
 	int contadoridentiId=0;
 	int contadoridenti=0;
+	int contadoridentiConst=0;
 	char car=' ';
 	boolean tablaCreada=false;
 	boolean flagExpo=false;
@@ -114,7 +115,7 @@ public class Ventana extends JFrame {
 					 { 1, 1,19,19,19, 2,18,14,19,19,20},
 					 { 1, 1,19,19,19,19,19,19,19,19,20},
 					 {19,19,19, 4,19,19,19,19,19,19,20},
-					 { 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 20},
+					 { 4, 4, 4, 5, 4, 4, 4, 4, 4, 4,20},
 					 {19,19, 6,19,19,19,19,19,19,19,20},
 					 {19,19,19,19,19,19,19,19,19,19,20},
 					 {19, 7,19,19,19,19, 9,19,11,19,20},
@@ -169,7 +170,12 @@ public class Ventana extends JFrame {
 		resultado.setForeground(Color.WHITE);
 		font(resultado,"Arial",14);
 		
-		JTextArea campoCadena=new JTextArea();
+		JTextArea campoCadena=new JTextArea("( X1 + B2 ) ;\r\n" + 
+				"( Y1 + B3 * C4 ) + D ;\r\n" + 
+				"( ( ( VAR2 + X1 ) ) ) ;\r\n" + 
+				"( PESO + ( CARGO * DIF2 ) ) ;\r\n" + 
+				"( ( X2 + 45.78 ) * ( CARGO / ABONO ) - ( PORC * 12.55 ) ) – INT ;\r\n" + 
+				"456.78 * ( 12.34 * 3.56E45 ) + B2 ;");
 		campoCadena.setBounds(20, 100, 450, 200);
 		app.add(campoCadena);
 		app.add(resultado);
@@ -274,7 +280,7 @@ public class Ventana extends JFrame {
 				id=100;
 				 constante=200;
 				cicloLinea=0;
-				
+				contadoridentiConst=0;
 				id=100;
 				constante=200;
 				No=1;
@@ -357,7 +363,7 @@ public class Ventana extends JFrame {
 				datosLex=new String[5][100];
 				
 				
-				
+				contadoridentiConst=0;
 				contadoridenti=0;
 				 car=' ';
 				tablaCreada=false;
@@ -374,6 +380,7 @@ public class Ventana extends JFrame {
 				 No=1;
 				 lex="";
 				 linea=1;
+				 contadoridentiConst=0;
 				id=100;
 				 constante=200;
 				cicloLinea=0;
@@ -485,6 +492,7 @@ public void Scanner() {
 				lex="";
 				if(cadenaArray[cont+1].charAt(0)!=' ') {
 				linea++;
+				
 				}
 			}else if(aux!=' '){
 				elementArray[elemento] = lex;
@@ -501,7 +509,6 @@ public void Scanner() {
 		}
 		lineas[lineaEntexto]=Integer.toString(linea);
 		System.out.println("linea"+lineas[lineaEntexto]);
-		
 		cont++;
 
 	}while(car!='~');
@@ -535,7 +542,7 @@ Reglas 300
 			
 			cicloLinea++;
 	}
-			
+		
 			
 		if(elementArray[vueltas].equals("+")) {
 			
@@ -672,29 +679,24 @@ Reglas 300
 				if(elementArray[vueltas].equals(tokenUsado[i])) {
 					
 					auxId=tokenValorUsado[i];
-					
 					break;
+					
 				}
 				}
 				for(int i=0;i<espacioTablaOcupadoId.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
-						if(flagAId==false) {
+						
 						auxEspacio=espacioTablaOcupadoId[i];
 						System.out.println("espacio adquirido"+auxEspacio);
-						LineaId =(String)tablaId.getValueAt(auxEspacio-1, 2)+", "+linea;
+						
+						LineaId =(String)tablaId.getValueAt(auxEspacio, 2)+", "+linea;
+						
+						
 						DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
-
-						model1.setValueAt(LineaId, auxEspacio-1, 2);
-						}else {
-							auxEspacio=espacioTablaOcupadoId[i-1];
-							System.out.println("espacio adquirido"+auxEspacio);
-							LineaId =(String)tablaId.getValueAt(auxEspacio, 2)+", "+linea;
-							DefaultTableModel model1 = (DefaultTableModel)tablaId.getModel();
-
-							model1.setValueAt(LineaId, auxEspacio, 2);
-							flagAId=true;
-						}
+						model1.setValueAt(LineaId, auxEspacio, 2);
+						
+						
 						
 						
 						
@@ -713,17 +715,18 @@ Reglas 300
 				}
 			}else {
 				
-				contadoridenti++;
+				
+				
 				
 				
 				id++;
 				
 				identificador=String.valueOf(id);
-				espacioTablaOcupadoId[contadoridenti]=contadoridenti;
+				espacioTablaOcupadoId[contadoridenti]=contadoridentiId;
 				tokenUsado[contadoridenti]=elementArray[vueltas];
 				tokenValorUsado[contadoridenti]=id;
-				
-						
+				contadoridenti++;
+				contadoridentiId++;
 				SalidaId(elementArray[vueltas],identificador,Linea);
 				
 				Salida(Numero,Linea,elementArray[vueltas],"1",identificador);
@@ -764,25 +767,18 @@ Reglas 300
 					break;
 				}
 				}
-				for(int i=0;i<espacioTablaOcupado.length+1;i++) {
+				for(int i=0;i<espacioTablaOcupado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
-						if(flagAConst==false) {
+						
 							auxEspacio=espacioTablaOcupado[i];
 							System.out.println("espacio adquirido"+auxEspacio);
-							LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
+							LineaConst =(String)tablaConst.getValueAt(auxEspacio, 2)+", "+linea;
 							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
 
-							model2.setValueAt(LineaConst, auxEspacio-1, 2);
-							}else {
-								auxEspacio=espacioTablaOcupado[i-1];
-								System.out.println("espacio adquirido"+auxEspacio);
-								LineaConst =(String)tablaConst.getValueAt(auxEspacio, 2)+", "+linea;
-								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+							model2.setValueAt(LineaConst, auxEspacio, 2);
+							
 
-								model2.setValueAt(LineaConst, auxEspacio, 2);
-								flagAConst=true;
-							}
 							
 							
 						
@@ -799,14 +795,14 @@ Reglas 300
 				
 			}else {
 				
-				contadoridenti++;
-			
-				constante=constante+1;
+				constante++;
 				
 				consta=String.valueOf(constante);
-				espacioTablaOcupado[contadoridenti]=contadoridenti;
+				espacioTablaOcupado[contadoridenti]=contadoridentiConst;
 				tokenUsado[contadoridenti]=	elementArray[vueltas];
 				tokenValorUsado[contadoridenti]=constante;
+				contadoridenti++;
+				contadoridentiConst++;
 				
 				SalidaConst(elementArray[vueltas],consta,Linea);
 				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
@@ -817,85 +813,143 @@ Reglas 300
 			
 		}else if(estado==10){
 
-				String Numero=String.valueOf(No);
-				String Linea=String.valueOf(linea);
-				String consta=String.valueOf(constante);
-				String LineaConst=String.valueOf(linea);
-				int auxConst=0;
-				int auxEspacio=0;
-				boolean existe=false;
+			String Numero=String.valueOf(No);
+			String Linea=String.valueOf(linea);
+			String consta=String.valueOf(constante);
+			String LineaConst=String.valueOf(linea);
+			int auxConst=0;
+			int auxEspacio=0;
+			boolean existe=false;
 
-				for(int i=0;i<tokenUsado.length;i++) {
-					if(elementArray[vueltas].equals(tokenUsado[i]) ) {
-						//
-						
-						existe=true;
-						break;
-					}else {
-						existe=false;
-						
-					}
-						
-				}
-				if(existe==true ) {
+			for(int i=0;i<tokenUsado.length;i++) {
+				if(elementArray[vueltas].equals(tokenUsado[i]) ) {
+					//
 					
-					for(int i=0;i<tokenUsado.length;i++) {
+					existe=true;
+					break;
+				}else {
+					existe=false;
+					
+				}
+					
+			}
+			if(existe==true ) {
+				
+				for(int i=0;i<tokenUsado.length;i++) {
+				if(elementArray[vueltas].equals(tokenUsado[i])) {
+					
+					auxConst=tokenValorUsado[i];
+					break;
+				}
+				}
+				for(int i=0;i<espacioTablaOcupado.length;i++) {
 					if(elementArray[vueltas].equals(tokenUsado[i])) {
 						
-						auxConst=tokenValorUsado[i];
+						
+							auxEspacio=espacioTablaOcupado[i];
+							System.out.println("espacio adquirido"+auxEspacio);
+							LineaConst =(String)tablaConst.getValueAt(auxEspacio, 2)+", "+linea;
+							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+
+							model2.setValueAt(LineaConst, auxEspacio, 2);
+							
+							
 						break;
 					}
+					
 					}
-					for(int i=0;i<espacioTablaOcupado.length+1;i++) {
-						if(elementArray[vueltas].equals(tokenUsado[i])) {
-							
-							if(flagAConst==false) {
-								auxEspacio=espacioTablaOcupado[i];
-								System.out.println("espacio adquirido"+auxEspacio);
-								LineaConst =(String)tablaConst.getValueAt(auxEspacio-1, 2)+", "+linea;
-								DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
-
-								model2.setValueAt(LineaConst, auxEspacio-1, 2);
-								}else {
-									auxEspacio=espacioTablaOcupado[i];
-									System.out.println("espacio adquirido"+auxEspacio);
-									LineaConst =(String)tablaConst.getValueAt(auxEspacio-i, 2)+", "+linea;
-									DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
-
-									model2.setValueAt(LineaConst, auxEspacio-i, 2);
-									flagAConst=true;
-								}
-								
-								
-							
-							
-							
-							break;
-						}
-						
-						}
-					flagAId=true;
-					consta=String.valueOf(auxConst);
-					Salida(Numero,Linea,elementArray[vueltas],"2",consta);
-					
-					
-				}else {
-					
-					contadoridenti++;
 				
-					constante=constante+1;
+				consta=String.valueOf(auxConst);
+				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+				
+				
+			}else {
+				
+			
+				
+				constante++;
+				
+				consta=String.valueOf(constante);
+				espacioTablaOcupado[contadoridenti]=contadoridentiConst;
+				tokenUsado[contadoridenti]=	elementArray[vueltas];
+				tokenValorUsado[contadoridenti]=constante;
+				contadoridenti++;
+				contadoridentiConst++;
+				SalidaConst(elementArray[vueltas],consta,Linea);
+				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+			}if(flagError==false) {
+				resultado.setText("1:100 Sin errores");
+			}
+
+		}else if(estado==12){
+
+			String Numero=String.valueOf(No);
+			String Linea=String.valueOf(linea);
+			String consta=String.valueOf(constante);
+			String LineaConst=String.valueOf(linea);
+			int auxConst=0;
+			int auxEspacio=0;
+			boolean existe=false;
+
+			for(int i=0;i<tokenUsado.length;i++) {
+				if(elementArray[vueltas].equals(tokenUsado[i]) ) {
+					//
 					
-					consta=String.valueOf(constante);
-					espacioTablaOcupado[contadoridenti]=contadoridenti;
-					tokenUsado[contadoridenti]=	elementArray[vueltas];
-					tokenValorUsado[contadoridenti]=constante;
+					existe=true;
+					break;
+				}else {
+					existe=false;
 					
-					SalidaConst(elementArray[vueltas],consta,Linea);
-					Salida(Numero,Linea,elementArray[vueltas],"2",consta);
-				}if(flagError==false) {
-					resultado.setText("1:100 Sin errores");
 				}
-	
+					
+			}
+			if(existe==true ) {
+				
+				for(int i=0;i<tokenUsado.length;i++) {
+				if(elementArray[vueltas].equals(tokenUsado[i])) {
+					
+					auxConst=tokenValorUsado[i];
+					break;
+				}
+				}
+				for(int i=0;i<espacioTablaOcupado.length;i++) {
+					if(elementArray[vueltas].equals(tokenUsado[i])) {
+						
+						
+							auxEspacio=espacioTablaOcupado[i];
+							System.out.println("espacio adquirido"+auxEspacio);
+							LineaConst =(String)tablaConst.getValueAt(auxEspacio, 2)+", "+linea;
+							DefaultTableModel model2 = (DefaultTableModel)tablaConst.getModel();
+
+							model2.setValueAt(LineaConst, auxEspacio, 2);
+							
+						
+						break;
+					}
+					
+					}
+				
+				consta=String.valueOf(auxConst);
+				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+				
+				
+			}else {
+				
+				
+				
+				constante++;
+				
+				consta=String.valueOf(constante);
+				espacioTablaOcupado[contadoridenti]=contadoridentiConst;
+				tokenUsado[contadoridenti]=	elementArray[vueltas];
+				tokenValorUsado[contadoridenti]=constante;
+				contadoridenti++;
+				contadoridentiConst++;
+				SalidaConst(elementArray[vueltas],consta,Linea);
+				Salida(Numero,Linea,elementArray[vueltas],"2",consta);
+			}if(flagError==false) {
+				resultado.setText("1:100 Sin errores");
+			}
 
 		}else if(estado==17){
 			String Numero=String.valueOf(No);
