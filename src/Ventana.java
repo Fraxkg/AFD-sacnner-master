@@ -628,6 +628,7 @@ Reglas 300
 			
 			}else if(car=='1' || car=='2' || car=='3' || car=='4' || car=='5' || car=='6' || car=='7' || car=='8' || car=='9' || car=='0') {
 				carMatriz=1;
+				flagExpo=true;
 			}else if(car=='/') {
 				carMatriz=2;
 			}else if(car=='*') {
@@ -647,7 +648,7 @@ Reglas 300
 				carMatriz=10;
 			}
 			if(estado==7) {
-				flagExpo=true;
+				
 			}
 			estado= tabla[auxEstado][carMatriz];
 			
